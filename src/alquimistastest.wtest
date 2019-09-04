@@ -1,0 +1,69 @@
+import alquimistas.*
+
+describe "Alquimistas Test"{
+
+fixture{
+	
+	alquimista.agregarItemDeRecoleccion(cania) 
+	alquimista.agregarItemDeRecoleccion(bolsa) 
+	alquimista.agregarItemDeRecoleccion(red) 
+	
+	alquimista.agregarItemDeCombate(bomba)
+	alquimista.agregarItemDeCombate(debilitador)
+	alquimista.agregarItemDeCombate(pocion)
+	
+}
+
+
+//---Test 1.
+
+test "Un alquimista tiene criterio si la mitad de sus items de combate son efectivos"{
+	
+	assert.that(alquimista.tieneCriterio())
+}
+
+test "Un alquimista no tiene criterio si la mitad de sus items no son efectivos"{
+	alquimista.sacarItemDeCombate(bomba)
+	alquimista.sacarItemDeCombate(debilitador)
+	alquimista.agregarItemDeCombate(pocionNoEfectiva)
+	alquimista.agregarItemDeCombate(pocionNoEfectiva)
+	
+	assert.notThat(alquimista.tieneCriterio())
+}
+
+//---Test 2.
+
+test "Un alquimista es buen explorador si tiene una caña, una red y una bolsa"{
+
+	assert.that(alquimista.esBuenExplorador())
+}
+
+test "Un alquimista no es buen explorador si tiene una caña y dos redes"{
+	alquimista.agregarItemDeRecoleccion(red)
+	alquimista.sacarItemDeRecoleccion(bolsa)
+	
+	assert.notThat(alquimista.esBuenExplorador())
+}
+
+//---Test 3.
+
+test "La capacidad ofensiva del alquimista con una bomba, una pocion y un debilitador es igual a 116.5"{
+	assert.equals(116.5, alquimista.capacidadOfensiva())
+	
+} 
+
+//---Test 4.
+
+test "Un alquimista explorador, calidad promedio mayor a 50 y todos sus items de combate efectivos, es Profesional" {
+	
+	assert.that(alquimista.esProfesional())
+
+	}
+
+test "Un alquimista no explorador, calidad promedio mayor a 50 y todos sus items de combate efectivos, no es profesional"{
+	
+	alquimista.sacarItemDeRecoleccion(cania)
+	assert.notThat(alquimista.esProfesional())
+	
+	}
+}
