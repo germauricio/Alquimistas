@@ -1,5 +1,6 @@
 object alquimista{
 	
+	var items = []
 	var itemsDeCombate = []
 	var itemsDeRecoleccion = []
 	
